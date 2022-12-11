@@ -1,4 +1,6 @@
-﻿namespace Demo.Document.Command
+﻿using Demo.Document.Repository;
+
+namespace Demo.Document.Command
 {
     public class DocumentCommandBus : IDocumentCommandBus
     {

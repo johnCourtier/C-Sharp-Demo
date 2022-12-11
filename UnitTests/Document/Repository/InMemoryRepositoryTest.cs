@@ -1,9 +1,10 @@
 using Demo.Document;
+using Demo.Document.Repository;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Newtonsoft.Json.Linq;
 
-namespace UnitTests.Document.Document
+namespace UnitTests.Document.Repository
 {
     [TestFixture]
     public class InMemoryRepositoryTest
@@ -121,7 +122,7 @@ namespace UnitTests.Document.Document
             }
             catch (RuntimeException exception)
             {
-                Assert.That(exception.Message, Is.EqualTo($"Unable to provide document. Repository {this.InMemoryRepository.GetType()} can no process criteria {criteria}"));
+                Assert.That(exception.Message, Is.EqualTo($"Unable to provide document. Repository '{this.InMemoryRepository.GetType()}' can not process criteria {criteria}"));
             }
         }
 

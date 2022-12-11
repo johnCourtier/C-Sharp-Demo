@@ -1,5 +1,6 @@
 ﻿using Demo.Document;
 using Demo.Document.Command;
+using Demo.Document.Repository;
 using Moq;
 using Newtonsoft.Json.Linq;
 

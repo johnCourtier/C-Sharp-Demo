@@ -1,4 +1,4 @@
-﻿namespace Demo.Document
+﻿namespace Demo.Document.Repository
 {
     public interface IDocumentRepository
     {

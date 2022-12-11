@@ -1,8 +1,9 @@
 using Demo.Document.Command;
+using Demo.Document.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Demo.Document
+namespace Demo.Document.Controller
 {
     [ApiController]
     [Route("documents")]

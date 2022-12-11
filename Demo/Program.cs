@@ -1,5 +1,5 @@
-using Demo.Document;
 using Demo.Document.Command;
+using Demo.Document.Repository;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
