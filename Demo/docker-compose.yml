@@ -1,0 +1,22 @@
+﻿version: "3.9"
+
+services:
+  demo:
+    build:
+      context: .
+    container_name: dotnet
+    ports:
+      - "8080:80"
+    networks:
+      - demo
+
+  k6:
+    image: grafana/k6
+    build:
+      context: ./k6/
+    container_name: k6
+    networks:
+      - demo
+
+networks:
+  demo:

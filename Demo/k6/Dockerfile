@@ -1,0 +1,4 @@
+FROM grafana/k6
+WORKDIR /k6
+COPY . /k6
+ENTRYPOINT ["k6"]
