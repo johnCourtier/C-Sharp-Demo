@@ -1,9 +1,8 @@
-using Demo.Document;
 using Demo.Document.Command;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Demo.Controllers
+namespace Demo.Document
 {
     [ApiController]
     [Route("documents")]
@@ -18,8 +17,8 @@ namespace Demo.Controllers
             ILogger<DocumentController> logger
         )
         {
-            this.DocumentCommandBus = documentCommandBus;
-            this.Logger = logger;
+            DocumentCommandBus = documentCommandBus;
+            Logger = logger;
         }
 
         /// <summary>
@@ -48,17 +47,17 @@ namespace Demo.Controllers
             DocumentEntity document;
             try
             {
-                document = this.DocumentCommandBus.Execute(getDocumentCommand);
+                document = DocumentCommandBus.Execute(getDocumentCommand);
             }
             catch (RuntimeException exception)
             {
-                this.Logger.LogError(exception, $"Unable to provide document. Execution of '{getDocumentCommand}' command has failed.");
+                Logger.LogError(exception, $"Unable to provide document. Execution of '{getDocumentCommand}' command has failed.");
                 if (exception is ServiceException)
                 {
-                    return this.StatusCode(503);
+                    return StatusCode(503);
                 }
 
-                return this.BadRequest(new ProblemDetails()
+                return BadRequest(new ProblemDetails()
                 {
                     Title = "Document can not be provided.",
                     Status = 400,
@@ -66,7 +65,7 @@ namespace Demo.Controllers
                 });
             }
 
-            return this.Ok(document);
+            return Ok(document);
         }
 
         /// <summary>
@@ -90,24 +89,24 @@ namespace Demo.Controllers
             };
             try
             {
-                this.DocumentCommandBus.Execute(updateDocumentCommand);
+                DocumentCommandBus.Execute(updateDocumentCommand);
             }
             catch (RuntimeException exception)
             {
-                this.Logger.LogError(exception, $"Unable to update document. Execution of '{updateDocumentCommand}' command has failed.");
+                Logger.LogError(exception, $"Unable to update document. Execution of '{updateDocumentCommand}' command has failed.");
                 if (exception is ServiceException)
                 {
-                    return this.StatusCode(503);
+                    return StatusCode(503);
                 }
 
-                return this.BadRequest(new ProblemDetails()
+                return BadRequest(new ProblemDetails()
                 {
                     Title = "Document can not be updated.",
                     Status = 400,
                     Detail = $"Document with id '{document.Id}' does not exist."
                 });
             }
-            return this.NoContent();
+            return NoContent();
         }
 
         /// <summary>
@@ -119,6 +118,7 @@ namespace Demo.Controllers
         [HttpPost]
         [Consumes("application/json")]
         [Route("")]
+        [Produces("application/json")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(503)]
@@ -130,24 +130,24 @@ namespace Demo.Controllers
             };
             try
             {
-                this.DocumentCommandBus.Execute(persistDocumentCommand);
+                DocumentCommandBus.Execute(persistDocumentCommand);
             }
             catch (RuntimeException exception)
             {
-                this.Logger.LogError(exception, $"Unable to create document. Execution of '{persistDocumentCommand}' command has failed.");
+                Logger.LogError(exception, $"Unable to create document. Execution of '{persistDocumentCommand}' command has failed.");
                 if (exception is ServiceException)
                 {
-                    return this.StatusCode(503);
+                    return StatusCode(503);
                 }
 
-                return this.BadRequest(new ProblemDetails()
+                return BadRequest(new ProblemDetails()
                 {
                     Title = "Document can not be created.",
                     Status = 400,
                     Detail = $"Document with id '{document.Id}' already exists."
                 });
             }
-            return this.CreatedAtAction(nameof(GetDocument), new { id = document.Id }, document);
+            return CreatedAtAction(nameof(GetDocument), new { id = document.Id }, document);
         }
     }
 }
