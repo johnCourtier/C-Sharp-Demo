@@ -8,7 +8,6 @@ export let options = {
 };
 
 export default function () {
-    console.log(String(exec.scenario.iterationInInstance));
     const res = http.post('http://host.docker.internal:8080/documents/', JSON.stringify({
         id: String(exec.scenario.iterationInInstance),
         tags: ["demo", "k6"],
@@ -22,5 +21,4 @@ export default function () {
     check(res, {
         'is status 201': (r) => r.status === 201,
     });
-    console.log("Resposne code is :" + res.status);
 }

@@ -164,7 +164,7 @@ namespace UnitTests.Document.Document
 
             this.MemoryCache.Setup(me => me.TryGetValue(criteria.Id, out document)).Returns(true);
             DocumentEntity actualDocument = this.InMemoryRepository.Read(criteria);
-            Assert.AreEqual(document, actualDocument);
+            Assert.That(document, Is.EqualTo(actualDocument));
         }
     }
 }
