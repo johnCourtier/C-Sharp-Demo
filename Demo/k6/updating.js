@@ -8,7 +8,7 @@ export let options = {
 
 export function setup() {
     http.post('http://host.docker.internal:8080/documents/', JSON.stringify({
-        id: "id123",
+        id: "id1234",
         tags: ["demo", "k6"],
         data: {
             title: "k6 test",
@@ -21,7 +21,7 @@ export function setup() {
 
 export default function () {
     const res = http.put('http://host.docker.internal:8080/documents/', JSON.stringify({
-        id: "id123",
+        id: "id1234",
         tags: ["demo", "k6", "updated"],
         data: {
             title: "k6 test",
